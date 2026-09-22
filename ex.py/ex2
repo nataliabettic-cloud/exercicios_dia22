@@ -1,0 +1,109 @@
+def registrarTentativas():
+    tentativas = []
+
+    for i in range(10):
+        resultado = int(input("Digite o resultado do arremesso (0, 1, 2 ou 3): "))
+
+        while resultado < 0 or resultado > 3:
+            print("Valor inválido. Digite apenas 0, 1, 2 ou 3.")
+            resultado = int(input("Digite o resultado do arremesso: "))
+
+        tentativas.append(resultado)
+
+    return tentativas
+
+def calcularPontuacao(tentativas):
+    pontuacao = 0
+
+    for tentativa in tentativas:
+        pontuacao = pontuacao + tentativa
+
+    return pontuacao
+
+def calcularAproveitamento(tentativas):
+    convertidos = 0
+
+    for tentativa in tentativas:
+        if tentativa > 0:
+            convertidos = convertidos + 1
+
+    aproveitamento = (convertidos / 10) * 100
+
+    return aproveitamento
+
+def encontrarCestaMaisFrequente(tentativas):
+    cesta1 = 0
+    cesta2 = 0
+    cesta3 = 0
+
+    for tentativa in tentativas:
+        if tentativa == 1:
+            cesta1 = cesta1 + 1
+        elif tentativa == 2:
+            cesta2 = cesta2 + 1
+        elif tentativa == 3:
+            cesta3 = cesta3 + 1
+
+    maior = cesta1
+
+    if cesta2 > maior:
+        maior = cesta2
+
+    if cesta3 > maior:
+        maior = cesta3
+
+    print("\nTipo de cesta mais frequente:")
+
+    if cesta1 == maior:
+        print("Cesta de 1 ponto:", cesta1, "vez(es)")
+
+    if cesta2 == maior:
+        print("Cesta de 2 pontos:", cesta2, "vez(es)")
+
+    if cesta3 == maior:
+        print("Cesta de 3 pontos:", cesta3, "vez(es)")
+
+
+def mostrarResultado(tentativas):
+    pontuacao = calcularPontuacao(tentativas)
+    aproveitamento = calcularAproveitamento(tentativas)
+
+    convertidos = 0
+    errados = 0
+
+    for tentativa in tentativas:
+        if tentativa > 0:
+            convertidos = convertidos + 1
+        else:
+            errados = errados + 1
+
+    print("\n===== RESULTADO =====")
+
+    print("Tentativas:", tentativas)
+    print("Pontuação total:", pontuacao)
+    print("Arremessos convertidos:", convertidos)
+    print("Arremessos errados:", errados)
+    print("Aproveitamento:", aproveitamento, "%")
+
+    encontrarCestaMaisFrequente(tentativas)
+
+def main():
+    while True:
+        print("\n===== ANÁLISE DE ARREMESSOS =====")
+        print("1 - Registrar tentativas")
+        print("2 - Encerrar")
+
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == "1":
+            tentativas = registrarTentativas()
+            mostrarResultado(tentativas)
+
+        elif opcao == "2":
+            print("Programa encerrado.")
+            break
+
+        else:
+            print("Opção inválida.")
+
+main()

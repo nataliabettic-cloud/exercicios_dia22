@@ -1,0 +1,131 @@
+def listarMedicamentos(nomes, precos, estoques):
+    print("\n===== MEDICAMENTOS =====")
+
+    for i in range(5):
+        print("Nome:", nomes[i])
+        print("Preço: R$", precos[i])
+        print("Estoque:", estoques[i])
+        print("------------------------")
+
+
+def pesquisarMedicamento(nomes, precos, estoques):
+    nome = input("Digite o nome do medicamento: ")
+
+    encontrado = False
+
+    for i in range(5):
+        if nomes[i].lower() == nome.lower():
+            print("\nMedicamento encontrado!")
+            print("Nome:", nomes[i])
+            print("Preço: R$", precos[i])
+            print("Estoque:", estoques[i])
+            encontrado = True
+
+    if encontrado == False:
+        print("Medicamento não encontrado.")
+
+
+def registrarVenda(nomes, precos, estoques):
+    nome = input("Digite o nome do medicamento vendido: ")
+
+    encontrado = False
+
+    for i in range(5):
+        if nomes[i].lower() == nome.lower():
+            encontrado = True
+
+            quantidade = int(input("Digite a quantidade vendida: "))
+
+            while quantidade <= 0:
+                print("A quantidade deve ser maior que zero.")
+                quantidade = int(input("Digite a quantidade vendida: "))
+
+            if quantidade <= estoques[i]:
+                estoques[i] = estoques[i] - quantidade
+                print("Venda realizada com sucesso.")
+                print("Estoque atual:", estoques[i])
+            else:
+                print("Não há estoque suficiente.")
+
+    if encontrado == False:
+        print("Medicamento não encontrado.")
+
+
+def reporEstoque(nomes, precos, estoques):
+    nome = input("Digite o nome do medicamento: ")
+
+    encontrado = False
+
+    for i in range(5):
+        if nomes[i].lower() == nome.lower():
+            encontrado = True
+
+            quantidade = int(input("Digite a quantidade para reposição: "))
+
+            while quantidade <= 0:
+                print("A quantidade deve ser maior que zero.")
+                quantidade = int(input("Digite a quantidade para reposição: "))
+
+            estoques[i] = estoques[i] + quantidade
+
+            print("Estoque reposto com sucesso.")
+            print("Estoque atual:", estoques[i])
+
+    if encontrado == False:
+        print("Medicamento não encontrado.")
+
+
+def verificarEstoqueBaixo(nomes, precos, estoques):
+    print("\n===== ESTOQUE BAIXO =====")
+
+    encontrou = False
+
+    for i in range(5):
+        if estoques[i] < 5:
+            print(nomes[i], "- Estoque:", estoques[i])
+            encontrou = True
+
+    if encontrou == False:
+        print("Nenhum medicamento está com estoque baixo.")
+
+
+def main():
+    nomes = ["Dipirona", "Paracetamol", "Loratadina", "Ibuprofeno", "Amoxicilina"]
+    precos = [12.50, 9.90, 18.75, 15.00, 22.50]
+    estoques = [20, 15, 8, 4, 3]
+
+    while True:
+        print("\n===== FARMÁCIA =====")
+        print("1 - Listar medicamentos")
+        print("2 - Pesquisar medicamento")
+        print("3 - Registrar venda")
+        print("4 - Repor estoque")
+        print("5 - Mostrar estoque baixo")
+        print("6 - Encerrar")
+
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == "1":
+            listarMedicamentos(nomes, precos, estoques)
+
+        elif opcao == "2":
+            pesquisarMedicamento(nomes, precos, estoques)
+
+        elif opcao == "3":
+            registrarVenda(nomes, precos, estoques)
+
+        elif opcao == "4":
+            reporEstoque(nomes, precos, estoques)
+
+        elif opcao == "5":
+            verificarEstoqueBaixo(nomes, precos, estoques)
+
+        elif opcao == "6":
+            print("Programa encerrado.")
+            break
+
+        else:
+            print("Opção inválida.")
+
+
+main()
